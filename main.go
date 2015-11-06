@@ -93,20 +93,25 @@ func getEvents(username, password string) ([]github.Event, error) {
 
 	resp, err := tc.Do(req)
 	if err != nil {
-		fmt.Printf("Error : %s", err)
+		fmt.Printf("Error 1: %s", err)
+		return nil, err
+	}
+
+	if resp.StatusCode != 200 {
+		fmt.Printf("Error 1: %d %s", resp.StatusCode, resp.Status)
 		return nil, err
 	}
 
 	// read body
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Printf("Error : %s", err)
+		fmt.Printf("Error 2: %s", err)
 		return nil, err
 	}
 
 	err = resp.Body.Close()
 	if err != nil {
-		fmt.Printf("Error : %s", err)
+		fmt.Printf("Error 3: %s", err)
 		return nil, err
 	}
 
@@ -114,7 +119,7 @@ func getEvents(username, password string) ([]github.Event, error) {
 
 	err = json.Unmarshal(body, &events)
 	if err != nil {
-		fmt.Printf("Error : %s", err)
+		fmt.Printf("Error 4: %s", err)
 		return nil, err
 	}
 	return events, nil
@@ -169,6 +174,7 @@ func main() {
 	for {
 		events, err := getEvents(username, password)
 		if err != nil {
+			time.Sleep(30 * time.Second)
 			continue
 		}
 
