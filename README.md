@@ -8,6 +8,8 @@ GitHub-Notifier is a simple personal GitHub timeline notifier, which upon clicki
 
 You can run it in a background. It polls every 30 seconds and makes sure the notification are not too old and does not allow repeats.
 
+__password note__: you may also use Personal Access tokens for the password. To do this, in account settings in Github, create a new access token and use this token for your password.
+
 ## Screenshots
 Notification Support
 ![Simple Notification](https://dl.dropboxusercontent.com/u/7162902/github-notifier.png)
