@@ -3,7 +3,7 @@ GitHub-Notifier is a simple perosonal GitHub timeline notifier, which upon click
 
 ## Usage
 ```
-./github-notifier -u <username> -p <password>
+./github-notifier -u '<username>' -p '<password>'
 ```
 
 You can run it in a background. It polls every 30 seconds and makes sure the notification are not too old and does not allow repeats.
