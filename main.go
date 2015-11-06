@@ -172,7 +172,7 @@ func main() {
 			continue
 		}
 
-		nowM1 := time.Now().Add(-3 * time.Hour)
+		nowM1 := time.Now().Add(-1 * time.Hour)
 
 		for i, event := range events {
 			if i == 5 || nowM1.Sub(event.CreatedAt.UTC()) > 0 {
