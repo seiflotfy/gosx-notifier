@@ -1,4 +1,4 @@
-package gosxnotifier
+package githubnotifier
 
 import (
 	"errors"
@@ -8,8 +8,25 @@ import (
 	"strings"
 )
 
+// Sound to play with a notification
 type Sound string
 
+/*
+Default Sound = "'default'"
+Basso   Sound = "Basso"
+Blow    Sound = "Blow"
+Bottle  Sound = "Bottle"
+Frog    Sound = "Frog"
+Funk    Sound = "Funk"
+Glass   Sound = "Glass"
+Hero    Sound = "Hero"
+Morse   Sound = "Morse"
+Ping    Sound = "Ping"
+Pop     Sound = "Pop"
+Purr    Sound = "Purr"
+Sosumi  Sound = "Sosumi"
+Tink    Sound = "Tink"
+*/
 const (
 	Default Sound = "'default'"
 	Basso   Sound = "Basso"
@@ -27,6 +44,7 @@ const (
 	Tink    Sound = "Tink"
 )
 
+// Notification represtens the notification structure
 type Notification struct {
 	Message      string //required
 	Title        string //optional
@@ -39,21 +57,22 @@ type Notification struct {
 	ContentImage string //optional
 }
 
+// NewNotification return a Notification for a message string
 func NewNotification(message string) *Notification {
 	n := &Notification{Message: message}
 	return n
 }
 
+// Push displays the notification
 func (n *Notification) Push() error {
 	if supportedOS() {
-		commandTuples := make([]string, 0)
+		var commandTuples []string
 
 		//check required commands
 		if n.Message == "" {
 			return errors.New("Please specifiy a proper message argument.")
-		} else {
-			commandTuples = append(commandTuples, []string{"-message", n.Message}...)
 		}
+		commandTuples = append(commandTuples, []string{"-message", n.Message}...)
 
 		//add title if found
 		if n.Title != "" {
@@ -119,7 +138,7 @@ func (n *Notification) Push() error {
 			return errors.New("Please provide a Message and Type at a minimum.")
 		}
 
-		_, err = exec.Command(FinalPath, commandTuples...).Output()
+		_, err = exec.Command(finalPath, commandTuples...).Output()
 		if err != nil {
 			return err
 		}
@@ -128,9 +147,9 @@ func (n *Notification) Push() error {
 }
 
 func normalizeImagePath(image string) (string, error) {
-	if imagePath, err := filepath.Abs(image); err != nil {
+	imagePath, err := filepath.Abs(image)
+	if err != nil {
 		return "", errors.New("Could not resolve image path of image: " + image)
-	} else {
-		return imagePath, nil
 	}
+	return imagePath, nil
 }

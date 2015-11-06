@@ -1,4 +1,4 @@
-package gosxnotifier
+package githubnotifier
 
 import (
 	"log"
@@ -6,17 +6,17 @@ import (
 	"testing"
 )
 
-func Test_Install(t *testing.T) {
+func TestInstall(t *testing.T) {
 	//assert file exists
 
-	if !exists(FinalPath) {
-		t.Error("Test_Install failed to install the terminal-notifier.app bundle")
+	if !exists(finalPath) {
+		t.Error("TestInstall failed to install the terminal-notifier.app bundle")
 	} else {
-		log.Println("terminal-notifier.app bundle installed successfully at: ", FinalPath)
+		log.Println("terminal-notifier.app bundle installed successfully at: ", finalPath)
 	}
 }
 
-func Test_NewNotifier(t *testing.T) {
+func TestNewNotifier(t *testing.T) {
 	n := NewNotification("Hello")
 
 	//assert defaults
@@ -25,37 +25,37 @@ func Test_NewNotifier(t *testing.T) {
 	}
 }
 
-func Test_Push(t *testing.T) {
+func TestPush(t *testing.T) {
 	n := NewNotification("Testing Push")
 	err := n.Push()
 
 	if err != nil {
-		t.Error("Test_Push failed with error: ", err)
+		t.Error("TestPush failed with error: ", err)
 	}
 }
 
-func Test_Title(t *testing.T) {
+func TestTitle(t *testing.T) {
 	n := NewNotification("Testing Title")
 	n.Title = "gosx-notifier is amazing!"
 	err := n.Push()
 
 	if err != nil {
-		t.Error("Test_Title failed with error: ", err)
+		t.Error("TestTitle failed with error: ", err)
 	}
 }
 
-func Test_Subtitle(t *testing.T) {
+func TestSubtitle(t *testing.T) {
 	n := NewNotification("Testing Subtitle")
 	n.Subtitle = "gosx-notifier rocks!"
 
 	err := n.Push()
 
 	if err != nil {
-		t.Error("Test_Subtitle failed with error: ", err)
+		t.Error("TestSubtitle failed with error: ", err)
 	}
 }
 
-func Test_Sender(t *testing.T) {
+func TestSender(t *testing.T) {
 
 	for _, s := range []string{"com.apple.Safari", "com.apple.iTunes"} {
 
@@ -66,34 +66,34 @@ func Test_Sender(t *testing.T) {
 		err := n.Push()
 
 		if err != nil {
-			t.Error("Test_Sender failed with error: ", err)
+			t.Error("TestSender failed with error: ", err)
 		}
 	}
 }
 
-func Test_Group(t *testing.T) {
-	const app_id string = "github.com/deckarep/gosx-notifier"
+func TestGroup(t *testing.T) {
+	const appID string = "github.com/deckarep/gosx-notifier"
 
 	for i := 0; i < 3; i++ {
 		n := NewNotification("Testing Group Functionality...")
-		n.Group = app_id
+		n.Group = appID
 
 		err := n.Push()
 
 		if err != nil {
-			t.Error("Test_Group failed with error: ", err)
+			t.Error("TestGroup failed with error: ", err)
 		}
 
 	}
 }
 
-func Test_AppIcon(t *testing.T) {
+func TestAppIcon(t *testing.T) {
 	const appIcon string = "gopher.png"
 
 	n := NewNotification("Testing App Icon")
 
 	if icon, err := filepath.Abs(appIcon); err != nil {
-		t.Error("Test_AppIcon could not get the absolute file of: ", appIcon)
+		t.Error("TestAppIcon could not get the absolute file of: ", appIcon)
 	} else {
 		n.AppIcon = icon
 	}
@@ -101,17 +101,17 @@ func Test_AppIcon(t *testing.T) {
 	err := n.Push()
 
 	if err != nil {
-		t.Error("Test_AppIcon failed with error: ", err)
+		t.Error("TestAppIcon failed with error: ", err)
 	}
 }
 
-func Test_ContentImage(t *testing.T) {
+func TestContentImage(t *testing.T) {
 	const contentImage string = "gopher.png"
 
 	n := NewNotification("Testing Content Image")
 
 	if img, err := filepath.Abs(contentImage); err != nil {
-		t.Error("Test_AppIcon could not get the absolute file of: ", contentImage)
+		t.Error("TestAppIcon could not get the absolute file of: ", contentImage)
 	} else {
 		n.ContentImage = img
 	}
@@ -119,11 +119,11 @@ func Test_ContentImage(t *testing.T) {
 	err := n.Push()
 
 	if err != nil {
-		t.Error("Test_ContentImage failed with error: ", err)
+		t.Error("TestContentImage failed with error: ", err)
 	}
 }
 
-func Test_ContentImageAndIcon(t *testing.T) {
+func TestContentImageAndIcon(t *testing.T) {
 	const image string = "gopher.png"
 
 	n := NewNotification("Testing Content Image and Icon")
@@ -131,7 +131,7 @@ func Test_ContentImageAndIcon(t *testing.T) {
 	n.Subtitle = "I eat Goroutines for breakfast!"
 
 	if img, err := filepath.Abs(image); err != nil {
-		t.Error("Test_AppIcon could not get the absolute file of: ", image)
+		t.Error("TestAppIcon could not get the absolute file of: ", image)
 	} else {
 		n.ContentImage = img
 		n.AppIcon = img
@@ -140,7 +140,7 @@ func Test_ContentImageAndIcon(t *testing.T) {
 	err := n.Push()
 
 	if err != nil {
-		t.Error("Test_ContentImageAndIcon failed with error: ", err)
+		t.Error("TestContentImageAndIcon failed with error: ", err)
 	}
 }
 
@@ -148,32 +148,32 @@ func Test_ContentImageAndIcon(t *testing.T) {
 	Not an easy way to verify the tests below actually work as designed, but here for completion.
 */
 
-func Test_Sound(t *testing.T) {
+func TestSound(t *testing.T) {
 	n := NewNotification("Testing Sound")
 	n.Sound = Default
 	err := n.Push()
 
 	if err != nil {
-		t.Error("Test_Sound failed with error: ", err)
+		t.Error("TestSound failed with error: ", err)
 	}
 }
 
-func Test_Link_Url(t *testing.T) {
+func TestLink_Url(t *testing.T) {
 	n := NewNotification("Testing Link Url")
 	n.Link = "http://www.yahoo.com"
 	err := n.Push()
 
 	if err != nil {
-		t.Error("Test_Link failed with error: ", err)
+		t.Error("TestLink failed with error: ", err)
 	}
 }
 
-func Test_Link_App_Bundle(t *testing.T) {
+func TestLink_App_Bundle(t *testing.T) {
 	n := NewNotification("Testing Link Terminal")
 	n.Link = "com.apple.Safari"
 	err := n.Push()
 
 	if err != nil {
-		t.Error("Test_Link failed with error: ", err)
+		t.Error("TestLink failed with error: ", err)
 	}
 }

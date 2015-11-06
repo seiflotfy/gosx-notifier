@@ -1,4 +1,4 @@
-package gosxnotifier
+package githubnotifier
 
 import (
 	"archive/zip"
@@ -12,33 +12,32 @@ import (
 )
 
 const (
-	zipPath        = "terminal-notifier.temp.zip"
-	executablePath = "terminal-notifier.app/Contents/MacOS/terminal-notifier"
-	tempDirSuffix  = "gosxnotifier"
+	zipPath        = "github-notifier.temp.zip"
+	executablePath = "github-notifier.app/Contents/MacOS/terminal-notifier"
+	tempDirSuffix  = "github-notifier"
 )
 
 var (
 	rootPath  string
-	FinalPath string
+	finalPath string
 )
 
 func supportedOS() bool {
 	if runtime.GOOS == "darwin" {
 		return true
-	} else {
-		log.Print("OS does not support terminal-notifier")
-		return false
 	}
+	log.Print("OS does not support terminal-notifier")
+	return false
 }
 
 func init() {
 	if supportedOS() {
 		err := installTerminalNotifier()
 		if err != nil {
-			log.Fatal("Could not install Terminal Notifier to a temp directory")
-		} else {
-			FinalPath = filepath.Join(rootPath, executablePath)
+			log.Fatal("Could not install Terminal Notifier to a temp directory: ", err)
+
 		}
+		finalPath = filepath.Join(rootPath, executablePath)
 	}
 }
 
