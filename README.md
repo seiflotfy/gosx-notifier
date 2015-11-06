@@ -1,5 +1,5 @@
 # github-notifier
-GitHub-Notifier is a simple perosonal GitHub timeline notifier, which upon clicking takes you to GitHub page behind the notifcation.
+GitHub-Notifier is a simple personal GitHub timeline notifier, which upon clicking takes you to GitHub page behind the notifcation.
 
 ## Usage
 ```
